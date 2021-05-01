@@ -34,11 +34,17 @@
         font-size: 150%;
         padding: 20px 5px 20px 5px;
       }
-      .info-block {
+      .page {
         display: inline-block;
         max-width: 800px;
+      }
+      .info-block {
         text-align: left;
         padding: 0 0 20px 0;
+      }
+      .video {
+        width: 100%;
+        height: 400px;
       }
     </style>
 
@@ -52,22 +58,31 @@
       &middot; <a href="donate.html">Donate</a>
     </div>
 
-    <div class="info-block">
-      <strong class="name">h3cnc</strong> -
-        it's open source <strong>CNC</strong> software for the <strong>Allwinner H3</strong> based
-        SBCs (single board computers).
-      Project uses <a href="https://www.armbian.com">Armbian</a> as OS
-        and <a href="http://linuxcnc.org">LinuxCNC</a> as CNC software.
-      Also we are using <strong>Allwinner H3</strong>'s built-in RISC CPU core to handle output/input
-        pulses up to <strong class="note">500 kHz</strong>.
-      You can use this project to control any CNC/laser/engraving/3D machine.
-      See project's sources <a href="https://github.com/h3cnc">here</a>.
-      To begin, read the <a href="install.html"><strong>installation guide</strong></a>.
-      See a quick video (below) to understand how to use this project for your needs.
-    </div><br/>
+    <div class="page">
+      <div class="info-block">
+        <strong class="name">h3cnc</strong> -
+          it's open source <strong>CNC</strong> software for the <strong>Allwinner H3</strong> based
+          SBCs (single board computers).
+        Project uses <a href="https://www.armbian.com">Armbian</a> as OS
+          and <a href="http://linuxcnc.org">LinuxCNC</a> as CNC software.
+        Also we are using <strong>Allwinner H3</strong>'s built-in RISC CPU core to handle output/input
+          pulses up to <strong class="note">500 kHz</strong>.
+        You can use this project to control any CNC/laser/engraving/3D machine.
+        See project's sources <a href="https://github.com/h3cnc">here</a>.
+        To begin, read the <a href="install.html"><strong>installation guide</strong></a>.
+        See a quick video (below) to understand how to use this project for your needs.
+      </div>
 
-    <div class="info-block">
-      [youtube video here]
+      <div class="info-block">
+        <iframe
+          class="video"
+          src="https://www.youtube.com/embed/-N7UBLOjsFo"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
     </div>
   </body>
 </html>
