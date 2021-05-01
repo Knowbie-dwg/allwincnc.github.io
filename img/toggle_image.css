@@ -1,0 +1,32 @@
+@media all and (min-width: 500px)
+{
+    img.toggle_image
+    {
+        cursor: pointer;
+    }
+
+    img.fullsize
+    {
+        position: fixed;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        margin: 0;
+        background: rgba(255,255,255,0.97);
+        border: 10px solid rgba(0,0,0,0.8);
+        padding: 10px;
+        border-radius: 20px;
+        max-width: 90% !important;
+        max-height: 90% !important;
+        object-fit: contain;
+        transform: translate(-50%, -50%);
+        animation: img_soft_appear 0.5s ease-in-out 1;
+        z-index: 999;
+    }
+
+    @keyframes img_soft_appear
+    {
+        0% { opacity: 0; }
+        100% { opacity: 1.0; }
+    }
+}

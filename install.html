@@ -3,100 +3,15 @@
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>h3cnc - Installation Guide - Open-source CNC software for the Allwinner H3 based SBCs</title>
+        <link rel="stylesheet" href="img/main.css">
+        <link rel="stylesheet" href="img/toggle_image.css">
     </head>
     <body>
-        <style type="text/css">
-            body {
-                text-align: center;
-                font-size: 120%;
-                font-family: Arial, Helvetica, sans-serif;
-                background-color: #333;
-                color: #aaa;
-                padding: 10px;
-                margin: 0;
-            }
-            a, a:visited, a:hover, a:active {
-                color: #fff;
-                text-decoration: none;
-            }
-            a:hover {
-                color: #0ff;
-                text-decoration: underline;
-            }
-            .name {
-                color: #f0f;
-            }
-            .note {
-                color: #0f0;
-            }
-            .menu {
-                text-align: center;
-                font-size: 150%;
-                padding: 20px 5px 30px 5px;
-            }
-            .page {
-                display: inline-block;
-                max-width: 800px;
-            }
-            .info-block {
-                text-align: left;
-                padding: 0 0 30px 0;
-            }
-            .info-image {
-                width: 30%;
-                height: auto;
-                display: inline-block;
-                margin: 0 2% 0 0;
-                padding: 1%;
-                vertical-align: middle;
-                background-color: #ffffffdd;
-                border-radius: 10px;
-            }
-            .desc {
-                display: inline-block;
-                width: 65%;
-                vertical-align: middle;
-            }
-            .cmd
-            {
-                padding: 5px 10px;
-                margin: 10px 0;
-                outline: 1px solid #777;
-                font-size: 90%;
-                text-align: left;
-            }
-            @media (max-width: 500px) {
-                .menu {
-                    font-size: 130%;
-                    padding: 10px 5px 20px 5px;
-                }
-                .info-block {
-                    padding: 0 0 20px 0;
-                    text-align: center;
-                }
-                .info-image {
-                    width: 98%;
-                    margin: 0 0 20px 0;
-                }
-                .desc {
-                    width: 100%;
-                }
-            }
-        </style>
-
-        <div class="menu">
-            <a href="index.html">h3cnc</a>
-            &middot; <a href="install.html">Installation</a>
-            &middot; <a href="docs.html">Docs</a>
-            &middot; <a href="https://github.com/h3cnc">Sources</a>
-            &middot; <a href="https://forum.linuxcnc.org/18-computer/39037-linuxcnc-orange-pi">Forum&nbsp;(EN)</a>
-            &middot; <a href="https://www.cnc-club.ru/forum/viewtopic.php?f=41&t=16788">Forum&nbsp;(RU)</a>
-            &middot; <a href="donate.html">Donate</a>
-        </div>
+        <script type="text/javascript" src="img/menu.js"></script>
 
         <div class="page">
             <div class="info-block">
-                <img src="img/opi_sd_reader.png" class="info-image" />
+                <img src="img/opi_sd_reader.png" class="info-image toggle_image" />
                 <div class="desc">
                     You need to get a SBC (single board computer) with
                     <a href="https://www.aliexpress.com/wholesale?SearchText=allwinner+h3">Allwinner H3</a> SOC installed.
@@ -105,7 +20,7 @@
                 </div>
             </div>
             <div class="info-block">
-                <img src="img/power_cooler.png" class="info-image" />
+                <img src="img/power_cooler.png" class="info-image toggle_image" />
                 <div class="desc">
                     You need a power supply (DC 5V) with current limit of <strong>2A</strong> or better.
                     Please, use a radiator (with fan if possible) for the board's CPU.
@@ -113,7 +28,7 @@
                 </div>
             </div>
             <div class="info-block">
-                <img src="img/disp_ms_kb.png" class="info-image" />
+                <img src="img/disp_ms_kb.png" class="info-image toggle_image" />
                 <div class="desc">
                     You need a display, <strong>USB</strong> keyboard and <strong>USB</strong> mouse to control your mini PC like desktop PC.
                     If there is no a <strong>HDMI</strong> input port on your display,
@@ -122,7 +37,7 @@
                 </div>
             </div>
             <div class="info-block">
-                <img src="img/etcher_rawcopy.png" class="info-image" />
+                <img src="img/etcher_rawcopy.png" class="info-image toggle_image" />
                 <div class="desc">
                     Download a <strong>SD</strong> card image archive for your board from the <a href="https://www.armbian.com/download/">Armbian website</a>.
                     Unpack the archive and use <a href="https://www.balena.io/etcher/">Etcher</a> or
@@ -131,7 +46,7 @@
                 </div>
             </div>
             <div class="info-block">
-                <img src="img/armbian-desktop.png" class="info-image" />
+                <img src="img/armbian-desktop.png" class="info-image toggle_image" />
                 <div class="desc">
                     Insert your <strong>Micro SD</strong> card into your board and power up the board.
                     You will see a loading process data running on the screen.
@@ -142,7 +57,7 @@
                 </div>
             </div>
             <div class="info-block">
-                <img src="img/internet-connection.jpg" class="info-image" />
+                <img src="img/internet-connection.jpg" class="info-image toggle_image" />
                 <div class="desc">
                     For the quick installation you will need an Internet connection.
                     If your board has a <strong>Wi-Fi</strong> option, connect the board to the Internet via external <strong>Wi-Fi</strong> router.
@@ -151,7 +66,7 @@
                 </div>
             </div>
             <div class="info-block">
-                <img src="img/orangecnc-install.png" class="info-image" />
+                <img src="img/orangecnc-install.png" class="info-image toggle_image" />
                 <div class="desc">
                     Now we can start the installation process.
                     Start the <strong>Terminal Emulator</strong> through the <strong>Applications</strong> start menu and type these commands:
@@ -164,7 +79,7 @@
                 </div>
             </div>
             <div class="info-block">
-                <img src="img/linuxcnc-desktop-links.png" class="info-image" />
+                <img src="img/linuxcnc-desktop-links.png" class="info-image toggle_image" />
                 <div class="desc">
                     After a successful install you will see a new icons on the desktop.
                     These icons are the LinuxCNC test configuration launchers.
@@ -174,7 +89,7 @@
                 </div>
             </div>
             <div class="info-block">
-                <img src="img/tkemc_axis.png" class="info-image" />
+                <img src="img/tkemc_axis.png" class="info-image toggle_image" />
                 <div class="desc">
                     More info about
                     <a href="http://linuxcnc.org/docs/html/gui/tklinuxcnc.html">tklinuxcnc</a>
@@ -187,4 +102,5 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript" src="img/toggle_image.js"></script>
 </html>

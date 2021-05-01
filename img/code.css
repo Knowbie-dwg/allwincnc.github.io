@@ -1,0 +1,49 @@
+code
+{
+    display: block;
+    overflow: auto;
+    border: 2px solid rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 10px; 
+    margin: 10px 0 10px 0;
+    white-space: pre;
+    font-family: monospace;
+    font-size: 110%;
+    line-height: 1.3;
+}
+
+code.hal .comment
+{
+    color: rgba(0,200,0,1);
+    font-style: italic;
+}
+code.hal .n
+{
+    font-weight: bold;
+}
+code.hal .k0
+{
+    color: rgba(0,0,200,1);
+}
+code.hal .k1
+{
+    color: rgba(200,0,0,1);
+    font-weight: bold;
+}
+code.hal .s0
+{
+    font-weight: bold;
+}
+code.hal .s1
+{
+    font-weight: bold;
+}
+code.hal .comment .n,
+code.hal .comment .k0,
+code.hal .comment .k1,
+code.hal .comment .s0,
+code.hal .comment .s1
+{
+    font-weight: inherit;
+    color: inherit;
+}

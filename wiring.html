@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>h3cnc - Wiring - Open-source CNC software for the Allwinner H3 based SBCs</title>
+        <link rel="stylesheet" href="img/main.css">
+        <link rel="stylesheet" href="img/toggle_image.css">
+    </head>
+    <body>
+        <script type="text/javascript" src="img/menu.js"></script>
+
+        <div class="page">
+            <div class="info-block">
+                <img src="img/opi1_pinout.png" class="info-image toggle_image" />
+                <div class="desc">
+                    There is a <strong>40</strong>-pins GPIO header on the <strong>Orange Pi</strong> boards.
+                    Same as <strong>Raspberry Pi</strong>'s one.
+                    You can use <strong>28</strong> pins (of 40) for any input/output purposes.
+                    GPIO pins count is enough for many CNC machines.
+                    See the picture for a detailed pinout.
+                </div>
+            </div>
+            <div class="info-block">
+                <img src="img/opi1_pinout_other.png" class="info-image toggle_image" />
+                <div class="desc">
+                    There are addition input/output pins/sockets/buttons on the board -
+                    <strong>2</strong> LEDs, <strong>1</strong> button,
+                    <strong>2</strong> USART pins (for debug) and a <strong>24</strong>-pins camera socket.
+                    You can use all of them for any purposes too.
+                </div>
+            </div>
+            <div class="info-block">
+                <img src="img/hal.png" class="info-image toggle_image" />
+                <div class="desc">
+                    Before any wiring you need to get a pin names from the <strong>LinuxCNC</strong> configuration.
+                    This data can be found in the <strong>HAL</strong> files.
+                    You can find such files in the <strong>config</strong> folder (there is a link to it on the desktop).
+                </div>
+            </div>
+            <div class="info-block">
+                <img src="img/driver_wiring.png" class="info-image toggle_image" />
+                <div class="desc">
+                    For example, you want to connect a stepper motor driver.
+                    Scroll down the <strong>HAL</strong> file and find a table with pin names.
+                    In this example the <strong>STEP</strong> signal (X axis) is connected to the pin <strong>5</strong> (PA12).
+                    The <strong>DIR</strong> signal -  to the pin <strong>7</strong> (PA6).
+                    The (motor) <strong>ENABLE</strong> signal - to the pin <strong>19</strong> (PC0).
+                    Take some wires and connect them using a scheme.
+                </div>
+            </div>
+            <div class="info-block">
+                <img src="img/relay_wiring.png" class="info-image toggle_image" />
+                <div class="desc">
+                    If you want to control a high voltage devices, you can use a multi relay module.
+                    In this example the (spindle) <strong>ENABLE</strong> signal is connected to the pin <strong>16</strong> (PC4).
+                    And the <strong>E-STOP</strong> signal is connected to the pin <strong>3</strong> (PA12).
+                    The relay module has an optocouplers, so you can connect <strong>GPIO</strong> pins directly.
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="img/toggle_image.js"></script>
+</html>
