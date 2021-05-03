@@ -8,5 +8,5 @@ document.writeln("</h2>");
 document.writeln(String.fromCharCode(0x4D)+"IKH"+"AI"+""+"L");
 document.writeln("V"+"YD"+String.fromCharCode(0x52)+"EN"+"KO");
 
-document.writeln("<br/><br/>OR use this form<br/>");
+document.writeln("<br/><br/>OR use this form (russian service)<br/>");
 document.writeln('<h2><iframe src="https://yoomoney.ru/quickpay/shop-widget?writer=seller&targets=donation&targets-hint=&default-sum=&button-text=14&payment-type-choice=on&mobile-payment-type-choice=on&comment=on&hint=&successURL=&quickpay=shop&account=41001691842214" width="100%" height="301" frameborder="0" allowtransparency="true" scrolling="no"></iframe></h2>');
