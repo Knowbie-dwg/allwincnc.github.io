@@ -61,6 +61,10 @@ a:hover {
     font-size: 90%;
     text-align: left;
 }
+.footer {
+    padding: 20px 0 20px 0;
+    font-size: 80%;
+}
 @media (max-width: 500px) {
     .menu {
         font-size: 130%;
