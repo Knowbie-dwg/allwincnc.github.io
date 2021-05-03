@@ -15,18 +15,31 @@ a:hover {
     color: #0ff;
     text-decoration: underline;
 }
+.menu a.active {
+    color: rgb(118, 223, 255);
+}
 .name {
-    color: #f0f !important;
+    color: rgb(141, 233, 141) !important;
 }
 .note {
-    color: #0f0 !important;
+    color: rgb(224, 169, 255) !important;
+}
+.yes {
+    color: rgb(157, 223, 157) !important;
+}
+.no {
+    color: rgb(247, 132, 132) !important;
 }
 .menu {
     text-align: center;
     font-size: 150%;
     padding: 20px 5px 30px 5px;
 }
+.center {
+    text-align: center !important;
+}
 .page {
+    text-align: left;
     display: inline-block;
     max-width: 800px;
 }
@@ -65,10 +78,16 @@ a:hover {
     padding: 20px 0 20px 0;
     font-size: 80%;
 }
+.list {
+    text-align: left;
+}
 @media (max-width: 500px) {
     .menu {
         font-size: 130%;
         padding: 10px 5px 20px 5px;
+    }
+    .page {
+        width: 98%;
     }
     .info-block {
         padding: 0 0 20px 0;
