@@ -1,16 +1,17 @@
-var hl = 
+var hl =
 [
     {
         name: "hal",        // css class name
-        comment: 
+        comment:
         {
             line: ["#"],
             multi: []       // example [ ['/\\*','\\*/'] ]
         },
         number: '(^|[^\\w])(-?[0-9]+)(\\.[0-9]+)?',
         k0: [
-            'iocontrol','parport','hal_parport','opi_gpio','arisc.gpio','arisc.stepgen','tp',
-            'motion','axis','classicladder','gladevcp','threads','and2','not','or2','xor2','debounce','edge',
+            'iocontrol','parport','hal_parport',
+            'arisc','arisc\\.gpio','arisc\\.pwm','arisc\\.encoder',
+            'tp','motion','axis','classicladder','gladevcp','threads','and2','not','or2','xor2','debounce','edge',
             'flipflop','oneshot','logic','lut5','match8','select8','abs','blend','comp','constant','sum2',
             'counter','updown','ddt','deadzone','hypot','mult2','mux16','mux2','mux4','mux8','near','offset',
             'integ','invert','wcomp','weighted_sum','biquad','lowpass','limit1','limit2','limit3','maj3',
@@ -21,7 +22,7 @@ var hl =
             'stepgen','bldc_hall3','clarke2','clarke3','clarkeinv','charge_pump','encoder_ratio','estop_latch',
             'feedcomp','gearchange','ilowpass','joyhandle','knob2float','minmax','sample_hold','sampler','siggen',
             'sim_encoder','sphereprobe','steptest','streamer','supply','threadtest','time','timedelay','timedelta',
-            'toggle2nist','toggle','tristate_bit','tristate_float','watchdog' 
+            'toggle2nist','toggle','tristate_bit','tristate_float','watchdog','joint'
         ],
         k1: ['loadrt','loadusr','waitusr','unload','lock','unlock','net','linkps','linksp',
              'unlinkp','newsig','delsig','setp','getp','type','sets','gets','stype',
@@ -43,8 +44,8 @@ function hl_code()
         {
             var nodes = document.querySelectorAll("code." + hl[c].name);
 
-            if ( typeof(nodes) != "object" || 
-                typeof(nodes.length) != "number" || 
+            if ( typeof(nodes) != "object" ||
+                typeof(nodes.length) != "number" ||
                 nodes.length <= 0 ) continue;
 
     //        console.log("nodes = " + nodes.length);
