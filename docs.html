@@ -113,7 +113,8 @@ net home-z  <=  arisc.gpio.P0-out    # there's no such pin</code>
             </table>
             <p>
                 Examples:
-<code class="hal">loadrt arisc out=PA12,PA11 in=PA6,PA13
+<code class="hal">loadrt motion base_period_nsec=50000 servo_period_nsec=1000000 num_joints=1
+loadrt arisc out=PA12,PA11 in=PA6,PA13
 
 addf arisc.gpio.read   base-thread  # read all used pins state
 addf arisc.gpio.write  base-thread  # write all used pins state</code>
@@ -212,7 +213,8 @@ addf arisc.gpio.write  base-thread  # write all used pins state</code>
                 <span class="name">position-cmd</span> pin doesn't exists when channel's control type is - by speed.
 
                 Examples:
-<code class="hal">loadrt arisc pwm=p
+<code class="hal">loadrt motion base_period_nsec=50000 servo_period_nsec=1000000 num_joints=1
+loadrt arisc pwm=p
 
 setp arisc.pwm.0.pos-scale    [AXIS_0]SCALE
 setp arisc.pwm.0.pwm-port     0   # 0=PA
@@ -236,7 +238,8 @@ net x-pos-cmd  arisc.pwm.0.pos-cmd  joint.0.motor-pos-cmd</code>
             </table>
             <p>
                 Examples:
-<code class="hal">loadrt arisc pwm=p
+<code class="hal">loadrt motion base_period_nsec=50000 servo_period_nsec=1000000 num_joints=1
+loadrt arisc pwm=p
 
 addf arisc.pwm.read          servo-thread
 addf motion-command-handler  servo-thread
