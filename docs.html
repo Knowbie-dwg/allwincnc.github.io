@@ -160,13 +160,14 @@ addf arisc.gpio.write  base-thread  # write all used pins state</code>
                     If <span class="note">dc-fb</span> &gt; <span class="note">dc-max</span>,
                     real duty cycle will be set to <span class="note">dc-max</span>. Default is 1.</td></tr>
                 <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-max-t</td><td>(u32,&nbsp;io)</td>
-                    <td>.</td></tr>
+                    <td>maximum time (in nanoseconds) of a PWM pulse duration.
+                        If value is 0, value is ignored. Default is 0.</td></tr>
                 <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-offset</td><td>(float,&nbsp;io)</td>
-                    <td>.</td></tr>
+                    <td>simple offset for the desired duty cycle value. Default is 0.</td></tr>
                 <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-scale</td><td>(float,&nbsp;io)</td>
-                    <td>.</td></tr>
+                    <td>simple scale multiplier for the desired duty cycle value. Default is 1.</td></tr>
                 <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-fb</td><td>(float,&nbsp;out)</td>
-                    <td>real duty cycle
+                    <td>real duty cycle feedback
                     = <span class="note">dc-cmd</span> / <span class="note">dc-scale</span>
                     + <span class="note">dc-offset</span>. Then value will be limited by the
                     <span class="note">dc-min</span>, <span class="note">dc-max</span> and
