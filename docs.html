@@ -1,0 +1,253 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>h3cnc - Docs - Open-source CNC software for the Allwinner H3 based SBCs</title>
+        <link rel="stylesheet" href="img/main.css">
+        <link rel="stylesheet" href="img/code.css">
+    </head>
+    <body>
+        <script type="text/javascript" src="img/menu.js"></script>
+
+        <div class="page">
+            <div class="info-block">
+                <strong>ARISC</strong> driver - it's a component of the <strong>LinuxCNC</strong> software.
+                This component allows this software to talk with outside world
+                    using the build-in <strong>RISC</strong> co-processor.
+                <strong>ARISC</strong> means <strong>Allwinner RISC</strong>.
+                At this moment <strong>ARISC</strong> driver contains 3 modules -
+                    arisc.gpio, arisc.pwm and <strong>arisc.encoder</strong>.
+            </div>
+
+            <h2>Driver startup parameters</h2>
+            <ul>
+                <li>
+                    <span class="name">out</span> - a list of output GPIO pins (comma separated, no spaces).
+                    You <span class="yes">can</span> use a pin names only.
+                    Examples:
+<code class="hal"># IT'S OK
+loadrt arisc out=PA12,PA11,PA6,PA13</code>
+                </li>
+                <li>
+                    <span class="name">in</span> - a list of input GPIO pins (comma separated, no spaces).
+                    You <span class="yes">can</span> use a pin names only.
+                    Examples:
+<code class="hal"># IT'S OK
+loadrt arisc in=PA12,PA11,PA6,PA13</code>
+                </li>
+                <li>
+                    <span class="name">pwm</span> - PWM channel control types (comma separated, no spaces).
+                    You <span class="yes">can</span> use 3 types of control:
+                    <strong>f</strong> - by frequency, <strong>v</strong> - by speed, <strong>p</strong> - by position.
+                    Number of chars (p/v/f) means number of output channels.
+                    Examples:
+<code class="hal"># 4 channels (0,1,2,3) with control by position
+loadrt arisc pwm=p,p,p,p
+# 3 channels, controlled by position (0), speed (1) and frequency (2)
+loadrt arisc pwm=p,v,f</code>
+                </li>
+                <li>
+                    <span class="name">encoders</span> - number of encoder channels. Up to 8.
+                    Examples:
+<code class="hal"># IT'S OK
+loadrt arisc encoders=3</code>
+                </li>
+            </ul>
+            <p>
+                Examples:
+<code class="hal"># 2 input pins, 1 output pin, 4 PWM channels, 3 encoder channels
+loadrt arisc in=PA12,PA11 out=PD14 pwm=p,p,p,f encoders=3
+# no input pins, 3 output pins, 3 PWM channels, no encoder channels
+loadrt arisc out=PA12,PA11,PD14 pwm=p,p,p
+</code>
+            </p>
+            <br />
+
+            <h2><span class="name">arisc.gpio</span> HAL pins</h2>
+            <table class="pins">
+                <tr><td class="name">arisc.gpio.<span class="note">X</span>-out</td><td>(bit,&nbsp;out)</td>
+                    <td>output pin.</td></tr>
+                <tr><td class="name">arisc.gpio.<span class="note">X</span>-out-not</td><td>(bit,&nbsp;out)</td>
+                    <td>output pin, inverted.</td></tr>
+                <tr><td class="name">arisc.gpio.<span class="note">X</span>-in</td><td>(bit,&nbsp;in)</td>
+                    <td>input pin.</td></tr>
+                <tr><td class="name">arisc.gpio.<span class="note">X</span>-in-out</td><td>(bit,&nbsp;in)</td>
+                    <td>input pin, inverted.</td></tr>
+                <tr><td class="name">arisc.gpio.<span class="note">X</span>-pull</td><td>(s32,&nbsp;in)</td>
+                    <td>pin pull down (-1), pull up (1) or without (0).</td></tr>
+                <tr><td class="name">arisc.gpio.<span class="note">X</span>-multi-drive-level</td><td>(u32,&nbsp;in)</td>
+                    <td>pin multi-drive (open drain) level (0..3).</td></tr>
+            </table>
+            <p>
+                Replace the <span class="note">X</span> chars with <strong>GPIO</strong> pin name,
+                listed in the output/input list.
+                Examples:
+<code class="hal">loadrt arisc out=PA12,PA11,PA6,PA13 in=PA14,PA1,PA0
+# --- IT'S OK ---
+net xstep   =>  arisc.gpio.PA12-out
+net xdir    =>  arisc.gpio.PA11-out-not
+net ystep   =>  arisc.gpio.PA6-out
+net ydir    =>  arisc.gpio.PA13-out
+net home-x  <=  arisc.gpio.PA14-in
+net home-y  <=  arisc.gpio.PA1-in-not
+net home-z  <=  arisc.gpio.PA0-in
+setp arisc.gpio.PA12-pull -1 # pull down PA12 to the GND
+setp arisc.gpio.PA12-multi-drive-level 1
+# --- ERROR ---
+net xstep   =>  arisc.gpio.PA36-out  # there's no such pin
+net xdir    =>  arisc.gpio.3-out     # there's no such pin
+net ystep   =>  arisc.gpio.PA14-in   # there's no such pin
+net ydir    =>  arisc.gpio.A13-out   # there's no such pin
+net home-x  <=  arisc.gpio.PA12-out  # there's no such pin
+net home-y  <=  arisc.gpio.57-in     # there's no such pin
+net home-z  <=  arisc.gpio.P0-out    # there's no such pin</code>
+            </p>
+            <br />
+
+            <h2><span class="name">arisc.gpio</span> HAL functions</h2>
+            <table class="pins">
+                <tr><td class="name">arisc.gpio.read</td><td>(float:no)</td>
+                    <td>updates all input pins state.</td></tr>
+                <tr><td class="name">arisc.gpio.write</td><td>(float:no)</td>
+                    <td>updates all output pins state.</td></tr>
+            </table>
+            <p>
+                Examples:
+<code class="hal">loadrt arisc out=PA12,PA11 in=PA6,PA13
+
+addf arisc.gpio.read   base-thread  # read all used pins state
+addf arisc.gpio.write  base-thread  # write all used pins state</code>
+            </p>
+            <br />
+
+            <h2><span class="name">arisc.pwm</span> HAL pins</h2>
+            <table class="pins">
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.enable</td><td>(bit,&nbsp;in)</td>
+                    <td>channel ON/OFF (1/0). Default is 0.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.pwm-port</td><td>(u32,&nbsp;in)</td>
+                    <td>GPIO port number (0..7) for PWM signal.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.pwm-pin</td><td>(u32,&nbsp;in)</td>
+                    <td>GPIO pin number (0..23) for the PWM signal.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.pwm-invert</td><td>(bit,&nbsp;in)</td>
+                    <td>invert the PWM signal? (0/1). Default is 0.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dir-port</td><td>(u32,&nbsp;in)</td>
+                    <td>GPIO port number (0..7) for PWM signal.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dir-pin</td><td>(u32,&nbsp;in)</td>
+                    <td>GPIO pin number (0..23) for the DIR signal.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dir-invert</td><td>(bit,&nbsp;in)</td>
+                    <td>invert the DIR signal? (0/1). Default is 0.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dir-hold</td><td>(u32,&nbsp;io)</td>
+                    <td>minimal pause (in nanoseconds) between last PWM pulse and a DIR signal change.
+                    Default is 50000 ns.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dir-setup</td><td>(u32,&nbsp;io)</td>
+                    <td>minimal pause (in nanoseconds) between DIR signal change and next PWM pulse.
+                    Default is 50000 ns.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-cmd</td><td>(float,&nbsp;in)</td>
+                    <td>desired duty cycle (-1..1). 1 = 100%. Default is 0.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-min</td><td>(float,&nbsp;io)</td>
+                    <td>minimum duty cycle.
+                    If <span class="note">dc-fb</span> &lt; <span class="note">dc-min</span>,
+                    real duty cycle will be set to <span class="note">dc-min</span>. Default is -1.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-max</td><td>(float,&nbsp;io)</td>
+                    <td>maximum duty cycle.
+                    If <span class="note">dc-fb</span> &gt; <span class="note">dc-max</span>,
+                    real duty cycle will be set to <span class="note">dc-max</span>. Default is 1.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-max-t</td><td>(u32,&nbsp;io)</td>
+                    <td>.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-offset</td><td>(float,&nbsp;io)</td>
+                    <td>.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-scale</td><td>(float,&nbsp;io)</td>
+                    <td>.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.dc-fb</td><td>(float,&nbsp;out)</td>
+                    <td>real duty cycle
+                    = <span class="note">dc-cmd</span> / <span class="note">dc-scale</span>
+                    + <span class="note">dc-offset</span>. Then value will be limited by the
+                    <span class="note">dc-min</span>, <span class="note">dc-max</span> and
+                    <span class="note">dc-max-t</span> values.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.freq-cmd</td><td>(float,&nbsp;io)</td>
+                    <td>desired PWM frequency (in Hz). Default is 0.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.freq-min</td><td>(float,&nbsp;io)</td>
+                    <td>minimum PWM frequency (in Hz).
+                    If <span class="note">freq-fb</span> &lt; <span class="note">freq-min</span>,
+                    real frequency will be set to 0. Default is 50 Hz.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.freq-max</td><td>(float,&nbsp;io)</td>
+                    <td>maximum PWM frequency (in Hz).
+                    If <span class="note">freq-fb</span> &gt; <span class="note">freq-max</span>,
+                    real frequency will be set to <span class="note">freq-max</span>.
+                    Default is 500000 Hz.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.freq-fb</td><td>(float,&nbsp;out)</td>
+                    <td>real PWM frequency feedback.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.vel-cmd</td><td>(float,&nbsp;in)</td>
+                    <td>desired velocity (in movement units/second). Default is 0.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.vel-scale</td><td>(float,&nbsp;in)</td>
+                    <td>simple scale multiplier for the desired velocity value. Default is 1.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.vel-fb</td><td>(float,&nbsp;out)</td>
+                    <td>real velocity feedback (in movement units/second).</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.pos-cmd</td><td>(float,&nbsp;in)</td>
+                    <td>desired position (in movement units). Default is 0.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.pos-scale</td><td>(float,&nbsp;in)</td>
+                    <td>number of PWM pulses per movement unit. Default is 1.</td></tr>
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.pos-fb</td><td>(float,&nbsp;out)</td>
+                    <td>real position feedback in movement units.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.pwm.<span class="note">N</span>.counts</td><td>(s32,&nbsp;out)</td>
+                    <td>real position feedback in PWM pulses.</td></tr>
+            </table>
+            <p>
+                Replace <span class="note">N</span> with channel number (0..15).
+                <span class="name">velocity-cmd</span> pin exists only when channel's control type is - by position.
+                <span class="name">position-cmd</span> pin doesn't exists when channel's control type is - by speed.
+
+                Examples:
+<code class="hal">loadrt arisc pwm=p
+
+setp arisc.pwm.0.pos-scale    [AXIS_0]SCALE
+setp arisc.pwm.0.pwm-port     0   # 0=PA
+setp arisc.pwm.0.pwm-pin      12  # PA12
+setp arisc.pwm.0.pwm-invert   0
+setp arisc.pwm.0.dir-port     0   # 0=PA
+setp arisc.pwm.0.dir-pin      11  # PA11
+setp arisc.pwm.0.dir-invert   0
+
+net x-enable   arisc.pwm.0.enable   joint.0.amp-enable-out
+net x-pos-cmd  arisc.pwm.0.pos-cmd  joint.0.motor-pos-cmd</code>
+            </p>
+            <br />
+
+            <h2><span class="name">arisc.pwm</span> HAL functions</h2>
+            <table class="pins">
+                <tr><td class="name">arisc.pwm.read</td><td>(float:yes)</td>
+                    <td>updates all feedback pin values for the all channels.</td></tr>
+                <tr><td class="name">arisc.pwm.write</td><td>(float:yes)</td>
+                    <td>updates real frequency values for the all channels.</td></tr>
+            </table>
+            <p>
+                Examples:
+<code class="hal">loadrt arisc pwm=p
+
+addf arisc.pwm.read          servo-thread
+addf motion-command-handler  servo-thread
+addf motion-controller       servo-thread
+addf arisc.pwm.write         servo-thread</code>
+            </p>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="img/footer.js"></script>
+    </body>
+    <script type="text/javascript" src="img/main.js"></script>
+    <script type="text/javascript" src="img/code.js"></script>
+</html>

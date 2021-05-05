@@ -7,6 +7,19 @@ body {
     padding: 10px;
     margin: 0;
 }
+table {
+    font-size: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0 solid;
+    border-collapse: collapse;
+}
+td {
+    vertical-align: top;
+    text-align: left;
+    padding: 0 10px 0 0;
+    border: 0 solid;
+}
 a, a:visited, a:hover, a:active {
     color: #fff;
     text-decoration: none;
@@ -20,6 +33,7 @@ a:hover {
 }
 .name {
     color: rgb(141, 233, 141) !important;
+    white-space: nowrap;
 }
 .note {
     color: rgb(224, 169, 255) !important;
@@ -81,7 +95,16 @@ a:hover {
 .list {
     text-align: left;
 }
+.pins {
+    margin-left: 20px;
+}
 @media (max-width: 500px) {
+    tr {
+        display: list-item;
+    }
+    td {
+        display: inline-block;
+    }
     .menu {
         font-size: 130%;
         padding: 10px 5px 20px 5px;
