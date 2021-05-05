@@ -11,12 +11,14 @@
 
         <div class="page">
             <div class="info-block">
+                You will need just one detailed document to use this project -
+                    the document about ARISC driver.
                 <strong>ARISC</strong> driver - it's a component of the <strong>LinuxCNC</strong> software.
-                This component allows this software to talk with outside world
-                    using the build-in <strong>RISC</strong> co-processor.
-                <strong>ARISC</strong> means <strong>Allwinner RISC</strong>.
-                At this moment <strong>ARISC</strong> driver contains 3 modules -
-                    arisc.gpio, arisc.pwm and <strong>arisc.encoder</strong>.
+                This component allows the software to talk with outside world
+                    using the build-in <strong>Allwinner RISC</strong> CPU core (ARISC).
+                The driver contains 3 modules - arisc.gpio, arisc.pwm and <strong>arisc.encoder</strong>.
+                arisc.gpio don't uses the ARISC core, other modules - uses the ARISC core.
+                <strong>arisc.encoder</strong> module is WIP.
             </div>
 
             <h2>Driver startup parameters</h2>
@@ -244,7 +246,114 @@ addf motion-command-handler  servo-thread
 addf motion-controller       servo-thread
 addf arisc.pwm.write         servo-thread</code>
             </p>
-            </div>
+            <br />
+
+            <h2><span class="name">arisc.encoder</span> HAL pins</h2>
+            <table class="pins">
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.enable</td><td>(bit,&nbsp;in)</td>
+                    <td>channel ON/OFF (1/0). Default is 0.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.counter-mode</td><td>(bit,&nbsp;io)</td>
+                    <td>Enables counter mode.
+                        When 1, the counter counts each rising edge of the phase-A input, ignoring the value on phase-B.
+                        This is useful for counting the output of a single channel (non-quadrature) sensor.
+                        When 0, it counts in quadrature mode.
+                        Default is 0.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.x4-mode</td><td>(bit,&nbsp;io)</td>
+                    <td>Enables times-4 mode.
+                        When 1, the counter counts each edge of the quadrature waveform (four counts per full cycle).
+                        When 0, it only counts once per full cycle.
+                        In <span class="name">counter-mode</span>, this parameter is ignored.
+                        Default is 1.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.index-enable</td><td>(bit,&nbsp;io)</td>
+                    <td>When 1, counts and position are reset to zero on the next rising edge of INDEX (Z).
+                        At the same time, <span class="name">index-enable</span> is reset to zero
+                            to indicate that the rising edge has occurred.
+                        Default is 0.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.reset</td><td>(bit,&nbsp;in)</td>
+                    <td>When 1, <span class="name">counts</span> and <span class="name">pos</span> are reset to zero immediately.
+                        Default is 0.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.A-port</td><td>(u32,&nbsp;in)</td>
+                    <td>GPIO port number (0..7) for the phase A signal.</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.A-pin</td><td>(u32,&nbsp;in)</td>
+                    <td>GPIO pin number (0..23) for the phase A signal.</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.A-invert</td><td>(bit,&nbsp;in)</td>
+                    <td>invert phase A signal? (0/1). Default is 0.</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.A-all-edges</td><td>(bit,&nbsp;in)</td>
+                    <td>trigger phase A signal on any voltage age? (0/1)
+                        This HAL pin uses only when <span class="name">counter-mode</span> is enabled.
+                        Default is 0.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.B-port</td><td>(u32,&nbsp;in)</td>
+                    <td>GPIO port number (0..7) for the phase B signal.</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.B-pin</td><td>(u32,&nbsp;in)</td>
+                    <td>GPIO pin number (0..23) for the phase B signal.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.Z-port</td><td>(u32,&nbsp;in)</td>
+                    <td>GPIO port number (0..7) for the INDEX signal.</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.Z-pin</td><td>(u32,&nbsp;in)</td>
+                    <td>GPIO pin number (0..23) for the INDEX signal.</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.Z-invert</td><td>(bit,&nbsp;in)</td>
+                    <td>invert INDEX signal? (0/1). Default is 0.</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.Z-all-edges</td><td>(bit,&nbsp;in)</td>
+                    <td>trigger INDEX signal on any voltage age? (0/1)
+                        Default is 0.</td></tr>
+                <tr><td colspan="3">&middot; &middot; &middot;</td></tr>
+
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.pos-scale</td><td>(float,&nbsp;in)</td>
+                    <td>number of encoder pulses per movement unit. Default is 1.</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.pos</td><td>(float,&nbsp;out)</td>
+                    <td>real position feedback in movement units.</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.vel</td><td>(float,&nbsp;out)</td>
+                    <td>real velocity feedback (in movement units/second).</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.vel-rpm</td><td>(float,&nbsp;out)</td>
+                    <td>real velocity feedback (in revolutions/minute).</td></tr>
+                <tr><td class="name">arisc.encoder.<span class="note">N</span>.counts</td><td>(s32,&nbsp;out)</td>
+                    <td>real position feedback in encoder pulses.</td></tr>
+            </table>
+            <p>
+                Replace <span class="note">N</span> with channel number (0..7).
+                Examples:
+<code class="hal">loadrt arisc encoders=1
+
+setp arisc.encoder.0.pos-scale  [AXIS_0]SCALE
+setp arisc.encoder.0.A-port     0   # 0=PA
+setp arisc.encoder.0.A-pin      12  # PA12
+setp arisc.encoder.0.B-port     0   # 0=PA
+setp arisc.encoder.0.B-pin      11  # PA11
+setp arisc.encoder.0.Z-port     0   # 0=PA
+setp arisc.encoder.0.Z-pin      6   # PA6
+
+net x-enc-en  arisc.encoder.0.enable  joint.0.amp-enable-out
+net x-pos-fb  arisc.encoder.0.pos     joint.0.motor-pos-fb</code>
+            </p>
+            <br />
+
+            <h2><span class="name">arisc.encoder</span> HAL functions</h2>
+            <table class="pins">
+                <tr><td class="name">arisc.encoder.read</td><td>(float:yes)</td>
+                    <td>updates all feedback pin values for the all channels.</td></tr>
+            </table>
+            <p>
+                Examples:
+<code class="hal">loadrt motion base_period_nsec=50000 servo_period_nsec=1000000 num_joints=1
+loadrt arisc encoders=1
+
+addf arisc.encoder.read      servo-thread
+addf motion-command-handler  servo-thread
+addf motion-controller       servo-thread</code>
+            </p>
         </div>
 
         <script type="text/javascript" src="img/footer.js"></script>
