@@ -209,9 +209,6 @@ addf arisc.gpio.write  base-thread  # write all used pins state</code>
             </table>
             <p>
                 Replace <span class="note">N</span> with channel number (0..15).
-                <span class="name">velocity-cmd</span> pin exists only when channel's control type is - by position.
-                <span class="name">position-cmd</span> pin doesn't exists when channel's control type is - by speed.
-
                 Examples:
 <code class="hal">loadrt motion base_period_nsec=50000 servo_period_nsec=1000000 num_joints=1
 loadrt arisc pwm=p
