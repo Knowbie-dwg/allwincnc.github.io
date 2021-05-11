@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>allwincnc - HAL files converter - Open-source CNC software for the Allwinner H3/H5/H6 based SBCs</title>
+        <link rel="stylesheet" href="img/main.css">
+        <link rel="stylesheet" href="img/code.css">
+        <link rel="stylesheet" href="img/converter.css">
+    </head>
+    <body>
+        <script type="text/javascript" src="img/menu.js"></script>
+
+        <div class="page">
+            <div class="info-block">
+                If you have a <strong>HAL</strong> file with <strong>hal_parport</strong> (LPT)
+                    and <strong>stepgen</strong> drivers configuration,
+                    you can convert it to work with <strong>GPIO</strong> (opi_gpio) or
+                    <strong>ARISC</strong> (arisc_*) drivers.
+                Paste a <strong>HAL</strong> file source into specific field and
+                    click the button of your needs.
+            </div>
+
+            <div class="converter">
+                <div class="source_box">
+                    <div class="title">HAL file source</div>
+                    <code id="source" class="hal edit" contenteditable="true" spellcheck="false"></code>
+                </div>
+
+                <div class="output_box">
+                    <div class="title">Result</div>
+                    <code id="output" class="hal edit" contenteditable="true" spellcheck="false"></code>
+                </div>
+
+                <div class="control">
+                    <p><button id="conv_btn_2">GO</button></p>
+                    <div class="conv_notes" id="conv_notes_en"></div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="img/footer.js"></script>
+    </body>
+    <script type="text/javascript" src="img/main.js"></script>
+    <script type="text/javascript" src="img/lpt2arisc.js"></script>
+</html>

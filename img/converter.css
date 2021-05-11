@@ -1,0 +1,58 @@
+.converter
+{
+    outline: 0px solid blue;
+    text-align: center;
+}
+.converter .control #conv_btn_2
+{
+    font-size: 130%;
+}
+.converter .control .conv_notes
+{
+    font-size: 120%;
+    padding: 5px;
+    color: rgb(218, 247, 140);
+}
+.converter .source_box,
+.converter .output_box
+{
+    width: 47%;
+    display: inline-block;
+    margin: 1%;
+    outline: 0px solid blue;
+    vertical-align: top;
+}
+.converter .source_box .edit,
+.converter .output_box .edit
+{
+    min-height: 300px;
+    max-height: 400px;
+    text-align: left;
+    /*background: #F8F8F8;*/
+}
+.converter .source_box .title
+{
+    font-size: 130%;
+    color: rgb(191, 104, 231);
+}
+.converter .output_box .title
+{
+    font-size: 130%;
+    color: rgb(59, 218, 59);
+}
+@media all and (max-width: 500px)
+{
+    .converter .source_box,
+    .converter .output_box
+    {
+        width: 95%;
+        display: block;
+        padding: 2%;
+    }
+    .converter .source_box .edit,
+    .converter .output_box .edit
+    {
+        max-height: 300px;
+    }
+}
+
