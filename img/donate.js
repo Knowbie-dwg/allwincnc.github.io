@@ -1,5 +1,5 @@
 document.writeln('<h3><br/>');
-document.writeln('<a href="https://paypal.me/mikhailvydrenko">paypal.me/mikhailvydrenko</a>');
-document.writeln('<br/><br/>');
-document.writeln('<a href="https://yoomoney.ru/to/41001691842214">yoomoney.ru/to/41001691842214</a>');
-document.writeln('<br/><br/></h3>');
+document.writeln('&middot; <a href="https://paypal.me/mikhailvydrenko">PAYPAL</a>');
+document.writeln(' &middot; ');
+document.writeln('<a href="https://yoomoney.ru/to/41001691842214">YOOMONEY</a> &middot;');
+document.writeln('<br/></h3>');
