@@ -7,5 +7,6 @@ document.writeln(
         ' &middot; <a href="https://github.com/allwincnc">Sources</a>'+
         ' &middot; <a href="https://forum.linuxcnc.org/18-computer/39037-linuxcnc-orange-pi">Forum&nbsp;(EN)</a>'+
         ' &middot; <a href="https://www.cnc-club.ru/forum/viewtopic.php?f=41&t=16788">Forum&nbsp;(RU)</a>'+
+        ' &middot; <a href="donate.html">Donate</a>'+
     '</div>'+
 '');
