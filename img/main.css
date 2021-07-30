@@ -105,6 +105,7 @@ a:hover {
     td {
         display: inline-block;
     }
+    ul, li { text-align: left; } 
     .menu {
         font-size: 130%;
         padding: 10px 5px 20px 5px;
